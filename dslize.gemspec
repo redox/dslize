@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email = ['sylvain.utard@gmail.com']
   s.homepage = "https://github.com/utard/dslize"
   s.summary = %q{DSL made easy}
-  s.description = %q{}
+  s.description = %q{Finally an way to generate code with a custom DSL the ruby way !}
 
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
