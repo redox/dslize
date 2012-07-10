@@ -9,8 +9,8 @@ Finally an way to generate code with a custom DSL the ruby way !
 *  Use real ruby classes to define your DSL
 *  Add custom behaviors defining ruby methods
 *  Create custom formatters/generators extending a base class
-*  Module `DSLize::Methods` defines how your attributes are interpreted, include `DSLize::Methods::Base` to has the standard attributes
-*  Module `DSLize::Definition` defines your DSL
+*  Module `DSLize::Methods` defines your attributes types, include `DSLize::Methods::Base` to import the standard attributes
+*  Module `DSLize::Definition` defines your classes
 
 ## Installation ##
 
