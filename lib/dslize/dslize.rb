@@ -68,7 +68,7 @@ module DSLize
         private
         def attribute(type, name, args)
           args[:type] = type
-          DSLize.current_object[:attributes] = {}
+          DSLize.current_object[:attributes] ||= {}
           DSLize.current_object[:attributes][name] = args
         end
         
