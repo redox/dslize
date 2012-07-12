@@ -21,7 +21,20 @@ module DSLize
                     { :has_one => nil, :has_many => "unbounded"}.each do |relation, max_occurs|
                       (options[relation] or []).each do |k, v|
                         named_object_if_needed(xsd, k, v) do
-                          xsd.element(nil, { :ref => (v[:type] or k), :maxOccurs => max_occurs }.select { |k,v| !v.nil? })
+                          clazz = v[:type] or k
+                          subclasses = get_subclasses(clazz)
+                          if subclasses.empty?
+                            xsd.element(nil, { :ref => clazz, :maxOccurs => max_occurs }.select { |k,v| !v.nil? })
+                          else
+                            xsd.choice({ :maxOccurs => max_occurs }.select { |k,v| !v.nil? }) do
+                              subclasses.each do |sub_type|
+                                xsd.element(nil, :ref => sub_type)
+                              end
+                              if !objects[clazz][:abstract]
+                                xsd.element(nil, :ref => clazz)
+                              end
+                            end
+                          end
                         end
                       end
                     end

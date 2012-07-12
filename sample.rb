@@ -56,6 +56,10 @@ module DSLize::Definition
   class WaterPlanet < Planet
   end
   
+  class Universe
+    has_many Planet
+  end
+  
 end
 
 DSLize::Formatter::XSD.new.generate!(ARGV[0])
