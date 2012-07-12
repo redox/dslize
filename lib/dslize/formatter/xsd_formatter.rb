@@ -27,6 +27,11 @@ module DSLize
                             xsd.element(nil, { :ref => clazz, :maxOccurs => max_occurs }.select { |k,v| !v.nil? })
                           else
                             xsd.choice({ :maxOccurs => max_occurs }.select { |k,v| !v.nil? }) do
+                              xsd.annotation do
+                                xsd.appinfo do
+                                  xsd.property :name => clazz, :xmlns => "http://java.sun.com/xml/ns/jaxb"
+                                end
+                              end
                               subclasses.each do |sub_type|
                                 xsd.element(nil, :ref => sub_type)
                               end
@@ -53,7 +58,8 @@ module DSLize
         end
         
         File.open(args[0], "w") do |f|
-          f << schema.to_xml.gsub(' name=""', '') # xpain is buggy and always write a name on <element>
+          f << schema.to_xml.gsub(' name=""', ''). # xpain is buggy and always write a name on <element>
+            gsub(' xmlns:xsd="http://www.w3.org/2001/XMLSchema"', ' xmlns:xsd="http://www.w3.org/2001/XMLSchema" jaxb:version="2.0" elementFormDefault="qualified" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"')
         end
       end
       

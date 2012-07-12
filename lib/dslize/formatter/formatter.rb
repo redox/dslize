@@ -12,7 +12,7 @@ module DSLize
       
       protected
       def get_subclasses(type)
-        superclasses.select { |k,v| v.to_s == type.to_s }.keys
+        superclasses.select { |k,v| v.to_s == type.to_s }.keys.map { |k| (!objects[k][:abstract] ? [k] : []) + get_subclasses(k) }.flatten
       end
     end
     
